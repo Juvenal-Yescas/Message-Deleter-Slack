@@ -3,8 +3,8 @@ var token = '';
 var channel = '';
 
 const baseApiUrl    = 'https://slack.com/api/';
-const historyApiUrl = baseApiUrl + 'conversations.history?token=' + token + '&count=1000&channel=' + channel + '&cursor=';
-const deleteApiUrl  = baseApiUrl + 'chat.delete?token=' + token + '&channel=' + channel + '&ts='
+var historyApiUrl = '';
+var deleteApiUrl  = '';
 let   delay         = 300; // Delay between delete operations in milliseconds
 var   ts            = '';
 
@@ -73,6 +73,10 @@ function clearMessages(){
     channel = document.getElementById("channelId").value;
 
     if (token.length >0 && channel.length) {
+        
+        historyApiUrl = baseApiUrl + 'conversations.history?token=' + this.token + '&count=1000&channel=' + this.channel + '&cursor=';
+        deleteApiUrl  = baseApiUrl + 'chat.delete?token=' + token + '&channel=' + channel + '&ts='
+
         makeRequest(historyApiUrl,extractIdMessages);
         div = document.getElementById('log');
         div.innerHTML += 'Messages cleaning started <br>';
